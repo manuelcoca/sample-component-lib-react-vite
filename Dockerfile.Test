@@ -1,0 +1,21 @@
+FROM node:22.9.0-bookworm-slim AS builder
+
+# Set the working directory inside the container
+WORKDIR /usr/src/app
+
+# Install pnpm globally
+RUN npm install -g pnpm
+
+# Copy files
+COPY . .
+
+# Install dependencies for workspace and each package
+RUN pnpm install
+
+# Run build
+RUN pnpm all:build
+
+# Run tests
+RUN pnpm all:lint
+RUN pnpm all:typecheck
+RUN pnpm format:check

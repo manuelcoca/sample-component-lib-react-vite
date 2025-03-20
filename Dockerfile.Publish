@@ -1,0 +1,50 @@
+# Builder Stage: Install dependencies, build and test the package
+FROM node:22.9.0-bookworm-slim AS builder
+
+# Set the working directory inside the container
+WORKDIR /usr/src/app
+
+# Install pnpm globally
+RUN npm install -g pnpm
+
+# Copy package manager files and install dependencies for the root workspace
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN pnpm install -w
+
+# Copy configuration files needed for linting and formatting
+COPY eslint.config.mjs .prettierrc .prettierignore ./
+
+# Copy scripts
+COPY scripts ./scripts
+
+# Define the package to build and publish
+ARG PACKAGE_NAME
+
+# Copy only the specific package code to the container
+COPY packages/$PACKAGE_NAME ./packages/$PACKAGE_NAME
+
+# Install dependencies for the specific package
+RUN pnpm --filter $PACKAGE_NAME install
+
+# Run tests and build the specified package
+RUN pnpm format:check
+RUN pnpm $PACKAGE_NAME:typecheck
+RUN pnpm $PACKAGE_NAME:lint
+RUN pnpm $PACKAGE_NAME:build
+
+# Publish Stage: Prepare the package for publishing
+FROM node:22.9.0-bookworm-slim AS publish
+
+# Set the working directory inside the container
+WORKDIR /usr/src/app
+COPY --from=builder /usr/src/app .
+
+# Define build arguments
+ARG PACKAGE_NAME
+ARG NPM_TOKEN
+
+# Set environment variables for the publish script
+ENV NPM_TOKEN=${NPM_TOKEN}
+
+# Run the publish script
+RUN node scripts/publish.js $PACKAGE_NAME

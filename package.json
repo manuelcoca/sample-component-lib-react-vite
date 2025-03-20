@@ -1,0 +1,47 @@
+{
+  "name": "@component-lib/source",
+  "description": "A react library with components and icons.",
+  "private": true,
+  "author": {
+    "name": "Manuel Coca",
+    "email": "connect@manuel.co"
+  },
+  "type": "module",
+  "scripts": {
+    "prepare": "husky",
+    "verdaccio": "verdaccio --config .verdaccio/config.yaml",
+    "storybook": "pnpm --filter storybook dev",
+    "storybook:build": "pnpm --filter storybook build",
+    "format:check": "pnpm prettier --check .",
+    "format": "pnpm prettier --write .",
+    "all:build": "pnpm --filter \"./packages/**\" build",
+    "all:lint": "pnpm --filter \"./packages/**\" lint",
+    "all:typecheck": "pnpm --filter \"./packages/**\" typecheck",
+    "components:build": "pnpm --filter components build",
+    "components:build:analyze": "pnpm --filter components build:analyze",
+    "components:lint": "pnpm --filter components lint",
+    "components:typecheck": "pnpm --filter components typecheck",
+    "components:publish": "node scripts/publish.js components",
+    "icons:build": "pnpm --filter icons build",
+    "icons:build:analyze": "pnpm --filter icons build:analyze",
+    "icons:lint": "pnpm --filter icons lint",
+    "icons:typecheck": "pnpm --filter icons typecheck",
+    "icons:publish": "node scripts/publish.js icons"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.20.0",
+    "@jsdevtools/npm-publish": "^3.1.1",
+    "eslint": "^9.20.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^15.14.0",
+    "husky": "^9.1.7",
+    "prettier": "3.5.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.23.0",
+    "verdaccio": "^6.0.5"
+  }
+}

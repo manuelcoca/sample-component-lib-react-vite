@@ -1,0 +1,28 @@
+{
+  "name": "component-lib devcontainer",
+  "dockerFile": "Dockerfile",
+  "workspaceFolder": "/workspaces/component-lib",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/component-lib,type=bind",
+  "initializeCommand": [".devcontainer/initialize"],
+  "postCreateCommand": [".devcontainer/post-create"],
+  "runArgs": ["--network=devcontainer-network"],
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22.9.0"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "ms-azuretools.vscode-docker",
+        "eamodio.gitlens",
+        "GraphQL.vscode-graphql",
+        "GraphQL.vscode-graphql-syntax",
+        "42Crunch.vscode-openapi",
+        "redhat.vscode-yaml"
+      ]
+    }
+  }
+}

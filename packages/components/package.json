@@ -1,0 +1,57 @@
+{
+  "name": "@component-lib/components",
+  "version": "1.0.0",
+  "description": "Components and Theme Library.",
+  "author": {
+    "name": "Manuel Coca",
+    "email": "connect@manuel.co"
+  },
+  "keywords": [
+    "ui",
+    "components",
+    "theme"
+  ],
+  "type": "module",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./theme": {
+      "types": "./dist/theme.d.ts",
+      "import": "./dist/theme.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "http://localhost:4873"
+  },
+  "scripts": {
+    "build": "tsc -b && vite build",
+    "build:analyze": "vite-bundle-visualizer --output dist/stats/stats.html",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^6.4.7",
+    "tss-react": "^4.9.15"
+  },
+  "peerDependencies": {
+    "@mui/material": "^6.0.0",
+    "react": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.10",
+    "rollup-plugin-visualizer": "^5.14.0",
+    "vite": "^6.1.0",
+    "vite-bundle-visualizer": "^1.2.1",
+    "vite-plugin-dts": "^4.5.0"
+  }
+}

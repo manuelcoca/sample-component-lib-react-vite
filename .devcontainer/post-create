@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Navigate to workspace
+cd /workspaces/component-lib
+
+# Add workspace to git config
+git config --global --add safe.directory /workspaces/component-lib
+
+# Install dependencies
+pnpm install -w
+
+# Set npm auth token for verdaccio
+npm config set '//localhost:4873/:_authToken' 'fake'
